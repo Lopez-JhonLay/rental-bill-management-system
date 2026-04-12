@@ -1,0 +1,82 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id            String        @id @default(uuid())
+  full_name     String
+  email         String        @unique
+  password_hash String
+  created_at    DateTime      @default(now())
+  units         Unit[]
+  rate_settings RateSetting[]
+}
+
+model RateSetting {
+  id               String   @id @default(uuid())
+  user_id          String
+  electricity_rate Decimal  @db.Decimal(10,2)
+  water_rate       Decimal  @db.Decimal(10,2)
+  effective_from   DateTime @db.Date
+  created_at       DateTime @default(now())
+  user             User     @relation(fields: [user_id], references: [id])
+}
+
+model Unit {
+  id           String   @id @default(uuid())
+  user_id      String
+  unit_name    String
+  monthly_rent Decimal  @db.Decimal(10,2)
+  created_at   DateTime @default(now())
+  user         User     @relation(fields: [user_id], references: [id])
+  tenant       Tenant?
+  bills        Bill[]
+}
+
+model Tenant {
+  id           String   @id @default(uuid())
+  unit_id      String   @unique
+  tenant_name  String
+  person_count Int
+  created_at   DateTime @default(now())
+  unit         Unit     @relation(fields: [unit_id], references: [id])
+  bills        Bill[]
+}
+
+enum BillStatus {
+  DRAFT
+  CONFIRMED
+}
+
+model Bill {
+  id                  String     @id @default(uuid())
+  unit_id             String
+  tenant_id           String
+  billing_month       String     // e.g. "2026-04"
+  previous_kwh        Decimal    @db.Decimal(10,2)
+  current_kwh         Decimal    @db.Decimal(10,2)
+  // Rate snapshots — locked at time of bill generation
+  electricity_rate    Decimal    @db.Decimal(10,2)
+  water_rate          Decimal    @db.Decimal(10,2)
+  // Computed charges
+  electricity_charge  Decimal    @db.Decimal(10,2)
+  water_charge        Decimal    @db.Decimal(10,2)
+  rent_charge         Decimal    @db.Decimal(10,2)
+  total_amount        Decimal    @db.Decimal(10,2)
+  status              BillStatus @default(DRAFT)
+  created_at          DateTime   @default(now())
+  confirmed_at        DateTime?
+  unit                Unit       @relation(fields: [unit_id], references: [id])
+  tenant              Tenant     @relation(fields: [tenant_id], references: [id])
+
+  @@unique([unit_id, billing_month])
+}
