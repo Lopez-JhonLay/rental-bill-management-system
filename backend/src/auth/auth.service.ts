@@ -2,6 +2,7 @@ import { Injectable, UnauthorizedException, ConflictException } from '@nestjs/co
 import { JwtService } from '@nestjs/jwt';
 import { PrismaService } from 'src/prisma.service';
 import * as bycrpt from 'bcrypt';
+import { Response } from 'express';
 
 @Injectable()
 export class AuthService {
@@ -34,7 +35,7 @@ export class AuthService {
     return { message: 'Account created successfully', userId: user.id };
   }
 
-  async login(email: string, password: string) {
+  async login(email: string, password: string, res: Response) {
     const user = await this.prisma.user.findUnique({
       where: {
         email,
@@ -53,13 +54,30 @@ export class AuthService {
 
     const token = this.jwtService.sign({ sub: user.id, email: user.email });
 
-    return {
-      token,
+    res.cookie('token', token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'lax',
+      maxAge: 7 * 24 * 60 * 60 * 1000,
+    });
+
+    return res.json({
       user: {
         id: user.id,
-        full_name: user.full_name,
+        fullName: user.full_name,
         email: user.email,
       },
-    };
+    });
+  }
+
+  async logout(res: Response) {
+    res.cookie('token', {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'lax',
+      maxAge: 0,
+    });
+
+    return res.json({ message: 'Logged out successfully' });
   }
 }
