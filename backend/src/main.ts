@@ -10,6 +10,9 @@ import { apiReference } from '@scalar/nestjs-api-reference';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
+  // Set global prefix BEFORE creating Swagger document
+  app.setGlobalPrefix('api');
+
   const config = new DocumentBuilder()
     .setTitle('Rental Billing Management API')
     .setDescription('API description')
@@ -39,8 +42,6 @@ async function bootstrap() {
     origin: 'http://localhost:5137',
     credentials: true,
   });
-
-  app.setGlobalPrefix('api');
 
   await app.listen(process.env.PORT ?? 3000);
 }
