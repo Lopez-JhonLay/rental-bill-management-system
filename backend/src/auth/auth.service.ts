@@ -1,4 +1,8 @@
-import { Injectable, UnauthorizedException, ConflictException } from '@nestjs/common';
+import {
+  Injectable,
+  UnauthorizedException,
+  ConflictException,
+} from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { PrismaService } from 'src/prisma.service';
 import * as bycrpt from 'bcrypt';
@@ -67,6 +71,7 @@ export class AuthService {
         fullName: user.full_name,
         email: user.email,
       },
+      ...(process.env.NODE_ENV !== 'production' && { dev_token: token }),
     });
   }
 
