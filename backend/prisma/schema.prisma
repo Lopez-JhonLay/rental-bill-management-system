@@ -29,6 +29,8 @@ model RateSetting {
   effective_from   DateTime @db.Date
   created_at       DateTime @default(now())
   user             User     @relation(fields: [user_id], references: [id])
+
+  @@unique([user_id, effective_from])
 }
 
 model Unit {
