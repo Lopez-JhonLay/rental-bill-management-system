@@ -7,9 +7,10 @@ import { PrismaModule } from './prisma/prisma.module';
 import { UnitsModule } from './units/units.module';
 import { TenantsModule } from './tenants/tenants.module';
 import { SettingsModule } from './settings/settings.module';
+import { BillsModule } from './bills/bills.module';
 
 @Module({
-  imports: [ConfigModule.forRoot({ isGlobal: true }), PrismaModule, AuthModule, UnitsModule, TenantsModule, SettingsModule],
+  imports: [ConfigModule.forRoot({ isGlobal: true }), PrismaModule, AuthModule, UnitsModule, TenantsModule, SettingsModule, BillsModule],
   controllers: [AppController],
   providers: [AppService],
 })
