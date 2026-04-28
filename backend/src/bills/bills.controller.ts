@@ -48,7 +48,16 @@ export class BillsController {
   }
 
   @Put(':id/confirm')
-  confirm(@Param('id') id: string, @CurrentUser() user: JWTPayload) {
-    return this.billsService.confirm(id, user.id);
+  confirm(
+    @Param('id') id: string,
+    @CurrentUser() user: JWTPayload,
+    @Query('force') force?: string,
+  ) {
+    return this.billsService.confirm(id, user.id, force === 'true');
+  }
+
+  @Put(':id/recompute')
+  recompute(@Param('id') id: string, @CurrentUser() user: JWTPayload) {
+    return this.billsService.recompute(id, user.id);
   }
 }

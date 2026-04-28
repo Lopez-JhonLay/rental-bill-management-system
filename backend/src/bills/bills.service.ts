@@ -175,11 +175,45 @@ export class BillsService {
   }
 
   // CONFIRM a bill — locks it permanently
-  async confirm(id: string, userId: string) {
+  async confirm(id: string, userId: string, force: boolean = false) {
     const bill = await this.findOne(id, userId);
 
     if (bill.status === 'CONFIRMED') {
       throw new BadRequestException('Bill is already confirmed');
+    }
+
+    if (!force) {
+      // Check if a newer rate exists for this billing month
+      const currentRate = await this.settingsService.getActiveRate(
+        userId,
+        bill.billing_month,
+      );
+
+      const billElectricityRate = Number(bill.electricity_rate);
+      const currentElectricityRate = Number(currentRate.electricity_rate);
+
+      const billWaterRate = Number(bill.water_rate);
+      const currentWaterRate = Number(currentRate.water_rate);
+
+      const isRateChange =
+        billElectricityRate !== currentElectricityRate ||
+        billWaterRate !== currentWaterRate;
+
+      if (isRateChange) {
+        throw new BadRequestException({
+          message: 'Rate has changed since this bill was generated',
+          warning: true,
+          current_bill_rates: {
+            electricity_rate: billElectricityRate,
+            water_rate: billWaterRate,
+          },
+          new_bill_rates: {
+            electricity_rate: currentElectricityRate,
+            water_rate: currentWaterRate,
+          },
+          hint: 'Recompute the bill to use the latest rate or confirm anyway.',
+        });
+      }
     }
 
     return this.prisma.bill.update({
@@ -187,6 +221,45 @@ export class BillsService {
       data: {
         status: 'CONFIRMED',
         confirmed_at: new Date(),
+      },
+    });
+  }
+
+  // RECOMPUTE bill with latest active rate
+  async recompute(id: string, userId: string) {
+    const bill = await this.findOne(id, userId);
+
+    // Can only recompute DRAFT bills
+    if (bill.status === 'CONFIRMED') {
+      throw new BadRequestException('Cannot recompute a confirmed bill');
+    }
+
+    // Fetch the latest active rate for this billing month
+    const rate = await this.settingsService.getActiveRate(
+      userId,
+      bill.billing_month,
+    );
+
+    // Recompute charges using NEW rate
+    const previousKwh = Number(bill.previous_kwh);
+    const currentKwh = Number(bill.current_kwh);
+
+    const electricityCharge =
+      (currentKwh - previousKwh) * Number(rate.electricity_rate);
+    const waterCharge = bill.tenant.person_count * Number(rate.water_rate);
+    const rentCharge = Number(bill.rent_charge);
+    const totalAmount = electricityCharge + waterCharge + rentCharge;
+
+    return this.prisma.bill.update({
+      where: { id },
+      data: {
+        // Snapshot the new rate
+        electricity_rate: Number(rate.electricity_rate),
+        water_rate: Number(rate.water_rate),
+        // Update computed charges
+        electricity_charge: electricityCharge,
+        water_charge: waterCharge,
+        total_amount: totalAmount,
       },
     });
   }
