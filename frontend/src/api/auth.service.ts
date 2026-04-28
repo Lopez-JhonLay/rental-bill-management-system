@@ -37,4 +37,9 @@ export const authService = {
     const { data } = await api.post('/api/auth/logout');
     return data;
   },
+
+  me: async (): Promise<User> => {
+    const { data } = await api.get('/api/auth/me');
+    return data;
+  },
 };
