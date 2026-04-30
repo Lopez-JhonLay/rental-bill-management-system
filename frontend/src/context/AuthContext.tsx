@@ -1,14 +1,13 @@
-// src/context/AuthContext.tsx
 import { createContext, useContext, useEffect, useState, type ReactNode } from 'react';
 import type { User } from '../types/index';
 import { authService } from '../api/auth.service';
 
-interface AuthContextType {
+type AuthContextType = {
   user: User | null;
   setUser: (user: User | null) => void;
   isAuthenticated: boolean;
   isLoading: boolean;
-}
+};
 
 const AuthContext = createContext<AuthContextType | null>(null);
 

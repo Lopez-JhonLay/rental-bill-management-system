@@ -1,0 +1,24 @@
+import { useNavigate } from 'react-router';
+import type { Bill } from '../../types';
+import StatusBadge from './StatusBadge';
+
+type BillRowProps = {
+  bill: Bill;
+};
+
+export default function BillRow({ bill }: BillRowProps) {
+  const navigate = useNavigate();
+
+  return (
+    <tr className="hover cursor-pointer" onClick={() => navigate(`/units/${bill.unit_id}/bills/${bill.id}`)}>
+      <td className="font-medium">{bill.billing_month}</td>
+      <td>₱{Number(bill.electricity_charge).toLocaleString()}</td>
+      <td>₱{Number(bill.water_charge).toLocaleString()}</td>
+      <td>₱{Number(bill.rent_charge).toLocaleString()}</td>
+      <td className="font-bold">₱{Number(bill.total_amount).toLocaleString()}</td>
+      <td>
+        <StatusBadge status={bill.status} />
+      </td>
+    </tr>
+  );
+}
