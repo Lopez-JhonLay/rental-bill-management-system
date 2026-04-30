@@ -12,6 +12,7 @@ import UnitsList from './pages/units/UnitList';
 import UnitDetail from './pages/units/UnitDetail';
 import BillDetail from './pages/bills/BillDetail';
 import RateSettings from './pages/settings/RateSettings';
+import DashboardLayout from './components/shared/DashboardLayout';
 
 function PublicRoute({ children }: { children: React.ReactNode }) {
   const { isAuthenticated, isLoading } = useAuth();
@@ -43,7 +44,7 @@ function ProtectedRoute({ children }: { children: React.ReactNode }) {
     );
   }
 
-  return isAuthenticated ? <>{children}</> : <Navigate to="/login" />;
+  return isAuthenticated ? <DashboardLayout>{children}</DashboardLayout> : <Navigate to="/login" />;
 }
 
 export default function App() {
