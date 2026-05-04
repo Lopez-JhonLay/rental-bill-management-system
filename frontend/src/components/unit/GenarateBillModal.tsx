@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Loader2, FileText } from 'lucide-react';
 import { useCreateBill } from '../../hooks/useBillActions';
 import { useNavigate } from 'react-router';
 
@@ -15,22 +16,27 @@ export default function GenerateBillModal({ unitId, onClose }: GenerateBillModal
 
   const [form, setForm] = useState({
     billing_month: currentMonth,
-    current_kwh: 0,
+    current_kwh: '' as string | number,
   });
 
   const createBill = useCreateBill();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
     setForm((prev) => ({
       ...prev,
-      [e.target.name]: e.target.name === 'current_kwh' ? Number(e.target.value) : e.target.value,
+      [name]: value,
     }));
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     createBill.mutate(
-      { unit_id: unitId, ...form },
+      {
+        unit_id: unitId,
+        billing_month: form.billing_month,
+        current_kwh: Number(form.current_kwh) || 0,
+      },
       {
         onSuccess: (bill) => {
           onClose();
@@ -59,7 +65,7 @@ export default function GenerateBillModal({ unitId, onClose }: GenerateBillModal
 
         <form onSubmit={handleSubmit} className="flex flex-col gap-4">
           <label className="form-control">
-            <div className="label">
+            <div className="label pb-1">
               <span className="label-text">Billing Month</span>
             </div>
             <input
@@ -73,14 +79,14 @@ export default function GenerateBillModal({ unitId, onClose }: GenerateBillModal
           </label>
 
           <label className="form-control">
-            <div className="label">
+            <div className="label pb-1">
               <span className="label-text">Current KWH Reading</span>
             </div>
             <input
               type="number"
               name="current_kwh"
               placeholder="e.g. 1380"
-              className="input input-bordered w-full"
+              className="input input-bordered w-full [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
               value={form.current_kwh}
               onChange={handleChange}
               min={0}
@@ -92,8 +98,18 @@ export default function GenerateBillModal({ unitId, onClose }: GenerateBillModal
             <button type="button" className="btn btn-ghost" onClick={onClose}>
               Cancel
             </button>
-            <button type="submit" className="btn btn-soft btn-primary" disabled={createBill.isPending}>
-              {createBill.isPending ? <span className="loading loading-spinner loading-sm" /> : 'Generate Bill'}
+            <button type="submit" className="btn btn-soft btn-primary gap-2" disabled={createBill.isPending}>
+              {createBill.isPending ? (
+                <>
+                  <Loader2 className="w-4 h-4 animate-spin" />
+                  Generating...
+                </>
+              ) : (
+                <>
+                  <FileText className="w-4 h-4" />
+                  Generate Bill
+                </>
+              )}
             </button>
           </div>
         </form>

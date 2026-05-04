@@ -1,5 +1,5 @@
-// src/components/units/AddUnitModal.tsx
 import { useState } from 'react';
+import { Loader2, Plus } from 'lucide-react';
 import { useCreateUnit } from '../../hooks/useUnitActions';
 
 type AddUnitModalProps = {
@@ -9,23 +9,30 @@ type AddUnitModalProps = {
 export default function AddUnitModal({ onClose }: AddUnitModalProps) {
   const [form, setForm] = useState({
     unit_name: '',
-    monthly_rent: 0,
+    monthly_rent: '' as string | number,
   });
 
   const createUnit = useCreateUnit();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
     setForm((prev) => ({
       ...prev,
-      [e.target.name]: e.target.name === 'monthly_rent' ? Number(e.target.value) : e.target.value,
+      [name]: name === 'monthly_rent' ? value : value,
     }));
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    createUnit.mutate(form, {
-      onSuccess: () => onClose(),
-    });
+    createUnit.mutate(
+      {
+        unit_name: form.unit_name,
+        monthly_rent: Number(form.monthly_rent) || 0,
+      },
+      {
+        onSuccess: () => onClose(),
+      },
+    );
   };
 
   return (
@@ -41,7 +48,7 @@ export default function AddUnitModal({ onClose }: AddUnitModalProps) {
         )}
         <form onSubmit={handleSubmit} className="flex flex-col gap-4">
           <label className="form-control">
-            <div className="label">
+            <div className="label pb-1">
               <span className="label-text">Unit Name</span>
             </div>
             <input
@@ -56,14 +63,14 @@ export default function AddUnitModal({ onClose }: AddUnitModalProps) {
           </label>
 
           <label className="form-control">
-            <div className="label">
+            <div className="label pb-1">
               <span className="label-text">Monthly Rent (₱)</span>
             </div>
             <input
               type="number"
               name="monthly_rent"
               placeholder="2500"
-              className="input input-bordered w-full"
+              className="input input-bordered w-full [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
               value={form.monthly_rent}
               onChange={handleChange}
               min={0}
@@ -75,8 +82,18 @@ export default function AddUnitModal({ onClose }: AddUnitModalProps) {
             <button type="button" className="btn btn-ghost" onClick={onClose}>
               Cancel
             </button>
-            <button type="submit" className="btn btn-primary" disabled={createUnit.isPending}>
-              {createUnit.isPending ? <span className="loading loading-spinner loading-sm" /> : 'Add Unit'}
+            <button type="submit" className="btn btn-soft btn-primary gap-2" disabled={createUnit.isPending}>
+              {createUnit.isPending ? (
+                <>
+                  <Loader2 className="w-4 h-4 animate-spin" />
+                  Adding...
+                </>
+              ) : (
+                <>
+                  <Plus className="w-4 h-4" />
+                  Add Unit
+                </>
+              )}
             </button>
           </div>
         </form>
