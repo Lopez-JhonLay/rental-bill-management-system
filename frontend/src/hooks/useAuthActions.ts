@@ -9,9 +9,19 @@ export function useLogin() {
 
   return useMutation({
     mutationFn: authService.login,
-    onSuccess: (data) => {
+    onSuccess: async (data) => {
+      // Set user from login response
       setUser(data.user);
+      // Navigate to dashboard
       navigate('/dashboard');
+      // Optionally refetch user data to ensure it's fresh
+      try {
+        const freshUser = await authService.me();
+        setUser(freshUser);
+      } catch (error) {
+        // If refetch fails, we still have the user from login
+        console.error('Failed to refetch user data:', error);
+      }
     },
   });
 }

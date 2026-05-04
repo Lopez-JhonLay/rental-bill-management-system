@@ -1,14 +1,16 @@
 import { useAuth } from '../context/AuthContext';
 import { useUnits } from '../hooks/useUnitActions';
 import { useBills } from '../hooks/useBillActions';
-import { Home, FileText, CheckCircle, Settings, Coins, ReceiptText } from 'lucide-react';
+import { useNavigate } from 'react-router';
+import { Home, FileText, CheckCircle, Settings, Coins, ReceiptText, Loader2 } from 'lucide-react';
 
 import PageHeader from '../components/shared/PageHeader';
 import StatCard from '../components/dashboard/StatCard';
 import BillRow from '../components/shared/BillRow';
 
 export default function Dashboard() {
-  const { user } = useAuth();
+  const { user, isLoading: authLoading } = useAuth();
+  const navigate = useNavigate();
   const { data: units, isLoading: unitsLoading } = useUnits();
   const { data: bills, isLoading: billsLoading } = useBills();
 
@@ -26,12 +28,12 @@ export default function Dashboard() {
   // Recent bills — latest 5
   const recentBills = bills?.slice(0, 5) ?? [];
 
-  const isLoading = unitsLoading || billsLoading;
+  const isLoading = authLoading || unitsLoading || billsLoading;
 
   if (isLoading) {
     return (
       <div className="flex justify-center items-center h-64">
-        <span className="loading loading-spinner loading-lg" />
+        <Loader2 className="w-8 h-8 animate-spin text-primary" />
       </div>
     );
   }
@@ -39,7 +41,7 @@ export default function Dashboard() {
   return (
     <div>
       <PageHeader
-        title={`Welcome back, ${user?.full_name?.split(' ')[0]}!`}
+        title={`Welcome back, ${user?.full_name?.split(' ')[0] || 'User'}!`}
         subtitle="Here's your rental portfolio overview"
       />
       {/* Stats Grid */}
@@ -115,7 +117,7 @@ export default function Dashboard() {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6">
         <div
           className="card bg-base-100 border border-base-300 hover:border-primary transition-colors cursor-pointer"
-          onClick={() => (window.location.href = '/units')}
+          onClick={() => navigate('/units')}
         >
           <div className="card-body items-center text-center">
             <Home className="w-10 h-10 text-primary" />
@@ -126,7 +128,7 @@ export default function Dashboard() {
 
         <div
           className="card bg-base-100 border border-base-300 hover:border-warning transition-colors cursor-pointer"
-          onClick={() => (window.location.href = '/units')}
+          onClick={() => navigate('/units')}
         >
           <div className="card-body items-center text-center">
             <ReceiptText className="w-10 h-10 text-warning" />
@@ -137,7 +139,7 @@ export default function Dashboard() {
 
         <div
           className="card bg-base-100 border border-base-300 hover:border-success transition-colors cursor-pointer"
-          onClick={() => (window.location.href = '/settings/rates')}
+          onClick={() => navigate('/settings/rates')}
         >
           <div className="card-body items-center text-center">
             <Settings className="w-10 h-10 text-success" />

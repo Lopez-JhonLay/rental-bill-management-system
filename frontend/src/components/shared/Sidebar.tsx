@@ -65,18 +65,27 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
 
       {/* User info + Logout */}
       <div className="border-t border-base-300 pt-4 mt-4">
-        <div className="px-3 py-2 mb-2">
-          <p className="text-sm font-medium truncate">{user?.full_name}</p>
-          <p className="text-xs text-base-content/50 truncate">{user?.email}</p>
-        </div>
-        <button
-          onClick={() => logout.mutate()}
-          disabled={logout.isPending}
-          className="btn btn-ghost btn-sm w-full justify-start gap-3"
-        >
-          {logout.isPending ? <Loader2 className="w-4 h-4 animate-spin" /> : <LogOut className="w-4 h-4" />}
-          <span>Logout</span>
-        </button>
+        {user ? (
+          <>
+            <div className="px-3 py-2 mb-2">
+              <p className="text-sm font-medium truncate">{user.full_name}</p>
+              <p className="text-xs text-base-content/50 truncate">{user.email}</p>
+            </div>
+            <button
+              onClick={() => logout.mutate()}
+              disabled={logout.isPending}
+              className="btn btn-ghost btn-sm w-full justify-start gap-3"
+            >
+              {logout.isPending ? <Loader2 className="w-4 h-4 animate-spin" /> : <LogOut className="w-4 h-4" />}
+              <span>Logout</span>
+            </button>
+          </>
+        ) : (
+          <div className="px-3 py-2 mb-2">
+            <div className="skeleton h-4 w-32 mb-2"></div>
+            <div className="skeleton h-3 w-40"></div>
+          </div>
+        )}
       </div>
     </div>
   );

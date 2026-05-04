@@ -1,4 +1,3 @@
-// src/components/units/UnitCard.tsx
 import { useNavigate } from 'react-router';
 import { Users, Coins, ArrowRight } from 'lucide-react';
 import type { Unit } from '../../types';

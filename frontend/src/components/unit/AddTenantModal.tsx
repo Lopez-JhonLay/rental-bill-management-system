@@ -1,4 +1,3 @@
-// src/components/unit/AddTenantModal.tsx
 import { useState } from 'react';
 import { useCreateTenant } from '../../hooks/useTenantActions';
 
