@@ -92,7 +92,7 @@ export default function GenerateBillModal({ unitId, onClose }: GenerateBillModal
             <button type="button" className="btn btn-ghost" onClick={onClose}>
               Cancel
             </button>
-            <button type="submit" className="btn btn-primary" disabled={createBill.isPending}>
+            <button type="submit" className="btn btn-soft btn-primary" disabled={createBill.isPending}>
               {createBill.isPending ? <span className="loading loading-spinner loading-sm" /> : 'Generate Bill'}
             </button>
           </div>

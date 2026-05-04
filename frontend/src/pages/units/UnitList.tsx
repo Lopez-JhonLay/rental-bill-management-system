@@ -32,7 +32,7 @@ export default function UnitsList() {
         title="My Units"
         subtitle={`${units?.length ?? 0} unit${units?.length !== 1 ? 's' : ''} total`}
         action={
-          <button className="btn btn-primary" onClick={() => setShowModal(true)}>
+          <button className="btn btn-soft btn-primary" onClick={() => setShowModal(true)}>
             + Add Unit
           </button>
         }

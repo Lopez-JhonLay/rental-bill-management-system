@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Users, Edit2, Loader2 } from 'lucide-react';
 import type { Tenant } from '../../types';
 import { useUpdateTenant } from '../../hooks/useTenantActions';
 
@@ -31,9 +32,13 @@ export default function TenantInfoCard({ tenant }: TenantInfoCardProps) {
     <div className="card bg-base-100 border border-base-300">
       <div className="card-body">
         <div className="flex items-center justify-between mb-2">
-          <h3 className="font-bold text-base">👨‍👩‍👧 Tenant Info</h3>
+          <div className="flex items-center gap-2">
+            <Users className="w-5 h-5" />
+            <h3 className="font-bold text-base">Tenant Info</h3>
+          </div>
           {!isEditing && (
-            <button className="btn btn-ghost btn-xs" onClick={() => setIsEditing(true)}>
+            <button className="btn btn-ghost btn-xs gap-1" onClick={() => setIsEditing(true)}>
+              <Edit2 className="w-3 h-3" />
               Edit
             </button>
           )}
@@ -87,8 +92,8 @@ export default function TenantInfoCard({ tenant }: TenantInfoCardProps) {
               <button type="button" className="btn btn-ghost btn-sm" onClick={() => setIsEditing(false)}>
                 Cancel
               </button>
-              <button type="submit" className="btn btn-primary btn-sm" disabled={updateTenant.isPending}>
-                {updateTenant.isPending ? <span className="loading loading-spinner loading-xs" /> : 'Save'}
+              <button type="submit" className="btn btn-primary btn-soft btn-sm gap-1" disabled={updateTenant.isPending}>
+                {updateTenant.isPending ? <Loader2 className="w-4 h-4 animate-spin" /> : 'Save'}
               </button>
             </div>
           </form>
