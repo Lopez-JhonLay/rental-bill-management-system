@@ -207,7 +207,7 @@ export class BillsService {
             electricity_rate: billElectricityRate,
             water_rate: billWaterRate,
           },
-          new_bill_rates: {
+          new_rates: {
             electricity_rate: currentElectricityRate,
             water_rate: currentWaterRate,
           },

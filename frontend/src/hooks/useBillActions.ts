@@ -57,6 +57,7 @@ export function useConfirmBill() {
     mutationFn: ({ id, force }: { id: string; force?: boolean }) => billsService.confirm(id, force),
     onSuccess: (data) => {
       queryClient.invalidateQueries({ queryKey: ['bills'] });
+      queryClient.invalidateQueries({ queryKey: ['bills', data.id] });
       queryClient.invalidateQueries({ queryKey: ['units', data.unit_id] });
     },
   });

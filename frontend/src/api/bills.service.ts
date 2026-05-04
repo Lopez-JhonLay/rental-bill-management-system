@@ -41,9 +41,13 @@ export const billsService = {
   },
 
   confirm: async (id: string, force?: boolean): Promise<Bill> => {
-    const { data } = await api.put(`/api/bills/${id}/confirm`, null, {
-      params: { force },
-    });
+    const { data } = await api.put(
+      `/api/bills/${id}/confirm`,
+      {},
+      {
+        params: { force },
+      },
+    );
     return data;
   },
 };
