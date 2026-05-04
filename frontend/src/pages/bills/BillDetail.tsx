@@ -1,6 +1,7 @@
 // src/pages/bills/BillDetail.tsx
 import { useState } from 'react';
 import { useParams, useNavigate } from 'react-router';
+import { ArrowLeft, CheckCircle, Loader2 } from 'lucide-react';
 import { useBill, useConfirmBill, useRecomputeBill } from '../../hooks/useBillActions';
 import PageHeader from '../../components/shared/PageHeader';
 import StatusBadge from '../../components/shared/StatusBadge';
@@ -52,7 +53,7 @@ export default function BillDetail() {
   if (isLoading) {
     return (
       <div className="flex justify-center items-center h-64">
-        <span className="loading loading-spinner loading-lg" />
+        <Loader2 className="w-8 h-8 animate-spin text-primary" />
       </div>
     );
   }
@@ -68,16 +69,14 @@ export default function BillDetail() {
 
   return (
     <div>
+      {/* Back Button */}
+      <button onClick={() => navigate(`/units/${id}`)} className="btn btn-ghost btn-sm gap-1 mb-4">
+        <ArrowLeft className="w-4 h-4" />
+        Back to Unit
+      </button>
+
       {/* Header */}
-      <PageHeader
-        title={`Bill — ${bill.billing_month}`}
-        subtitle={bill.unit?.unit_name}
-        action={
-          <button className="btn btn-ghost btn-sm" onClick={() => navigate(`/units/${id}`)}>
-            ← Back to Unit
-          </button>
-        }
-      />
+      <PageHeader title={`Bill — ${bill.billing_month}`} subtitle={bill.unit?.unit_name} />
 
       {/* Status Badge */}
       <div className="flex items-center gap-3 mb-6">
@@ -114,16 +113,19 @@ export default function BillDetail() {
       {/* Confirm Button — only for DRAFT */}
       {isDraft && (
         <div className="flex justify-end mt-6">
-          <button className="btn btn-success" onClick={handleConfirm} disabled={confirmBill.isPending}>
-            {confirmBill.isPending ? <span className="loading loading-spinner loading-sm" /> : '✅ Confirm Bill'}
+          <button className="btn btn-success gap-2" onClick={handleConfirm} disabled={confirmBill.isPending}>
+            {confirmBill.isPending ? (
+              <>
+                <Loader2 className="w-4 h-4 animate-spin" />
+                Confirming...
+              </>
+            ) : (
+              <>
+                <CheckCircle className="w-4 h-4" />
+                Confirm Bill
+              </>
+            )}
           </button>
-        </div>
-      )}
-
-      {/* Confirmed message */}
-      {!isDraft && (
-        <div className="alert alert-success mt-6">
-          <span>✅ This bill has been confirmed and locked on {new Date(bill.confirmed_at!).toLocaleString()}</span>
         </div>
       )}
     </div>
