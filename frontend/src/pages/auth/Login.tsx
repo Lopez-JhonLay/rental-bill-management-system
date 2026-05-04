@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router';
+import { Loader2 } from 'lucide-react';
 import { useLogin } from '../../hooks/useAuthActions';
 
 export default function Login() {
@@ -23,8 +24,18 @@ export default function Login() {
   };
 
   return (
-    <div className="min-h-screen bg-base-200 flex items-center justify-center">
-      <div className="card bg-base-100 w-full max-w-md shadow-xl">
+    <div className="min-h-screen bg-base-200 flex items-center justify-center relative overflow-hidden">
+      {/* Dark Grid Lines Background */}
+      <div
+        className="absolute inset-0 z-0 opacity-30"
+        style={{
+          backgroundImage: `linear-gradient(to right, #262626 1px, transparent 1px),
+            linear-gradient(to bottom, #262626 1px, transparent 1px)`,
+          backgroundSize: '20px 20px',
+        }}
+      />
+
+      <div className="card bg-base-100 w-full max-w-md shadow-xl relative z-10">
         <div className="card-body">
           {/* Header */}
           <h1 className="text-2xl font-bold text-center">Rental Manager</h1>
@@ -69,7 +80,14 @@ export default function Login() {
             </label>
 
             <button type="submit" className="btn btn-primary w-full mt-2" disabled={login.isPending}>
-              {login.isPending ? <span className="loading loading-spinner" /> : 'Sign In'}
+              {login.isPending ? (
+                <>
+                  <Loader2 className="w-4 h-4 animate-spin" />
+                  Signing in...
+                </>
+              ) : (
+                'Sign In'
+              )}
             </button>
           </form>
 
