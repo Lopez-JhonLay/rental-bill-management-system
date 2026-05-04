@@ -1,6 +1,7 @@
 import { useAuth } from '../context/AuthContext';
 import { useUnits } from '../hooks/useUnitActions';
 import { useBills } from '../hooks/useBillActions';
+import { Home, FileText, CheckCircle, Settings, Coins, ReceiptText } from 'lucide-react';
 
 import PageHeader from '../components/shared/PageHeader';
 import StatCard from '../components/dashboard/StatCard';
@@ -38,34 +39,34 @@ export default function Dashboard() {
   return (
     <div>
       <PageHeader
-        title={`Welcome back, ${user?.full_name?.split(' ')[0]}! 👋`}
+        title={`Welcome back, ${user?.full_name?.split(' ')[0]}!`}
         subtitle="Here's your rental portfolio overview"
       />
       {/* Stats Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
         <StatCard
-          icon="🏠"
+          icon={<Home className="w-6 h-6" />}
           label="Total Units"
           value={totalUnits}
           description={`${occupiedUnits} occupied · ${vacantUnits} vacant`}
           color="primary"
         />
         <StatCard
-          icon="🧾"
+          icon={<FileText className="w-6 h-6" />}
           label="Pending Bills"
           value={draftBills}
           description="Awaiting confirmation"
           color="warning"
         />
         <StatCard
-          icon="✅"
+          icon={<CheckCircle className="w-6 h-6" />}
           label="Confirmed Bills"
           value={confirmedBills}
           description="Locked and finalized"
           color="success"
         />
         <StatCard
-          icon="💰"
+          icon={<Coins className="w-6 h-6" />}
           label="Total Collectibles"
           value={`₱${totalCollectibles.toLocaleString()}`}
           description="From pending bills"
@@ -76,13 +77,14 @@ export default function Dashboard() {
       {/* Recent Bills */}
       <div className="card bg-base-100 border border-base-300">
         <div className="card-body">
-          <div className="flex items-center justify-between mb-4">
-            <h3 className="font-bold text-base">🧾 Recent Bills</h3>
+          <div className="flex items-center gap-2 mb-4">
+            <ReceiptText className="w-5 h-5" />
+            <h3 className="font-bold text-base">Recent Bills</h3>
           </div>
 
           {recentBills.length === 0 ? (
             <div className="flex flex-col items-center justify-center h-32 gap-2 text-base-content/50">
-              <span className="text-3xl">🧾</span>
+              <ReceiptText className="w-12 h-12" />
               <p className="text-sm">No bills generated yet</p>
             </div>
           ) : (
@@ -116,7 +118,7 @@ export default function Dashboard() {
           onClick={() => (window.location.href = '/units')}
         >
           <div className="card-body items-center text-center">
-            <span className="text-3xl">🏠</span>
+            <Home className="w-10 h-10 text-primary" />
             <p className="font-medium">Manage Units</p>
             <p className="text-xs text-base-content/50">Add or view your rental units</p>
           </div>
@@ -127,7 +129,7 @@ export default function Dashboard() {
           onClick={() => (window.location.href = '/units')}
         >
           <div className="card-body items-center text-center">
-            <span className="text-3xl">🧾</span>
+            <ReceiptText className="w-10 h-10 text-warning" />
             <p className="font-medium">Generate Bills</p>
             <p className="text-xs text-base-content/50">Create monthly bills for tenants</p>
           </div>
@@ -138,7 +140,7 @@ export default function Dashboard() {
           onClick={() => (window.location.href = '/settings/rates')}
         >
           <div className="card-body items-center text-center">
-            <span className="text-3xl">⚙️</span>
+            <Settings className="w-10 h-10 text-success" />
             <p className="font-medium">Rate Settings</p>
             <p className="text-xs text-base-content/50">Manage electricity and water rates</p>
           </div>

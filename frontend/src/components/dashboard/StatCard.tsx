@@ -1,5 +1,7 @@
+import type { ReactNode } from 'react';
+
 type StatCardProps = {
-  icon: string;
+  icon: ReactNode;
   label: string;
   value: string | number;
   description?: string;
@@ -23,7 +25,7 @@ export default function StatCard({ icon, label, value, description, color = 'pri
             <p className={`text-3xl font-bold mt-1 ${colorMap[color]}`}>{value}</p>
             {description && <p className="text-base-content/50 text-xs mt-1">{description}</p>}
           </div>
-          <span className="text-4xl">{icon}</span>
+          <div className={colorMap[color]}>{icon}</div>
         </div>
       </div>
     </div>
