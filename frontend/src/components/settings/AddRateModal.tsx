@@ -104,7 +104,7 @@ export default function AddRateModal({ onClose }: AddRateModalProps) {
             <button type="button" className="btn btn-ghost" onClick={onClose}>
               Cancel
             </button>
-            <button type="submit" className="btn btn-primary" disabled={createRate.isPending}>
+            <button type="submit" className="btn btn-soft btn-primary" disabled={createRate.isPending}>
               {createRate.isPending ? <span className="loading loading-spinner loading-sm" /> : 'Add Rate'}
             </button>
           </div>

@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { History, Settings, Loader2, Plus } from 'lucide-react';
 
 import { useRates } from '../../hooks/useSettingsAction';
 
@@ -14,7 +15,7 @@ export default function RateSettings() {
   if (isLoading) {
     return (
       <div className="flex justify-center items-center h-64">
-        <span className="loading loading-spinner loading-lg" />
+        <Loader2 className="w-8 h-8 animate-spin text-primary" />
       </div>
     );
   }
@@ -36,8 +37,9 @@ export default function RateSettings() {
         title="Rate Settings"
         subtitle="Manage electricity and water rates"
         action={
-          <button className="btn btn-primary" onClick={() => setShowModal(true)}>
-            + New Rate
+          <button className="btn btn-soft btn-primary gap-1" onClick={() => setShowModal(true)}>
+            <Plus className="w-4 h-4" />
+            New Rate
           </button>
         }
       />
@@ -45,11 +47,12 @@ export default function RateSettings() {
       {/* No rates yet */}
       {!activeRate && (
         <div className="flex flex-col items-center justify-center h-64 gap-4 text-base-content/50">
-          <span className="text-6xl">⚙️</span>
+          <Settings className="w-16 h-16" />
           <p className="text-lg font-medium">No rates configured yet</p>
           <p className="text-sm">Add your first rate to start generating bills</p>
-          <button className="btn btn-primary btn-sm" onClick={() => setShowModal(true)}>
-            + Add Rate
+          <button className="btn btn-primary btn-sm gap-1" onClick={() => setShowModal(true)}>
+            <Plus className="w-4 h-4" />
+            Add Rate
           </button>
         </div>
       )}
@@ -62,7 +65,10 @@ export default function RateSettings() {
           {/* Rate History Table */}
           <div className="card bg-base-100 border border-base-300">
             <div className="card-body">
-              <h3 className="font-bold text-base mb-4">📋 Rate History</h3>
+              <div className="flex items-center gap-2 mb-4">
+                <History className="w-5 h-5" />
+                <h3 className="font-bold text-base">Rate History</h3>
+              </div>
 
               <div className="overflow-x-auto">
                 <table className="table table-sm">
