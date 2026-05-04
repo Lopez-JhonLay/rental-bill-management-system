@@ -1,5 +1,6 @@
 // src/App.tsx
-import { Routes, Route, Navigate } from 'react-router';
+import { Routes, Route, Navigate, useLocation } from 'react-router';
+import { AnimatePresence } from 'framer-motion';
 import { useAuth } from './context/AuthContext';
 
 // Auth pages
@@ -48,70 +49,74 @@ function ProtectedRoute({ children }: { children: React.ReactNode }) {
 }
 
 export default function App() {
+  const location = useLocation();
+
   return (
-    <Routes>
-      {/* Public routes */}
-      <Route
-        path="/login"
-        element={
-          <PublicRoute>
-            <Login />
-          </PublicRoute>
-        }
-      />
-      <Route
-        path="/register"
-        element={
-          <PublicRoute>
-            <Register />
-          </PublicRoute>
-        }
-      />
+    <AnimatePresence mode="wait">
+      <Routes location={location} key={location.pathname}>
+        {/* Public routes */}
+        <Route
+          path="/login"
+          element={
+            <PublicRoute>
+              <Login />
+            </PublicRoute>
+          }
+        />
+        <Route
+          path="/register"
+          element={
+            <PublicRoute>
+              <Register />
+            </PublicRoute>
+          }
+        />
 
-      {/* Protected routes */}
-      <Route
-        path="/dashboard"
-        element={
-          <ProtectedRoute>
-            <Dashboard />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path="/units"
-        element={
-          <ProtectedRoute>
-            <UnitsList />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path="/units/:id"
-        element={
-          <ProtectedRoute>
-            <UnitDetail />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path="/units/:id/bills/:billId"
-        element={
-          <ProtectedRoute>
-            <BillDetail />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path="/settings/rates"
-        element={
-          <ProtectedRoute>
-            <RateSettings />
-          </ProtectedRoute>
-        }
-      />
+        {/* Protected routes */}
+        <Route
+          path="/dashboard"
+          element={
+            <ProtectedRoute>
+              <Dashboard />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/units"
+          element={
+            <ProtectedRoute>
+              <UnitsList />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/units/:id"
+          element={
+            <ProtectedRoute>
+              <UnitDetail />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/units/:id/bills/:billId"
+          element={
+            <ProtectedRoute>
+              <BillDetail />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/settings/rates"
+          element={
+            <ProtectedRoute>
+              <RateSettings />
+            </ProtectedRoute>
+          }
+        />
 
-      {/* Redirect root to dashboard */}
-      <Route path="/" element={<Navigate to="/dashboard" />} />
-    </Routes>
+        {/* Redirect root to dashboard */}
+        <Route path="/" element={<Navigate to="/dashboard" />} />
+      </Routes>
+    </AnimatePresence>
   );
 }
