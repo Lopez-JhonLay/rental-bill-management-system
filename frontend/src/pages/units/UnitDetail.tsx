@@ -8,14 +8,12 @@ import { useDeleteUnit } from '../../hooks/useUnitActions';
 import PageHeader from '../../components/shared/PageHeader';
 import TenantInfoCard from '../../components/unit/TenantInfoCard';
 import AddTenantModal from '../../components/unit/AddTenantModal';
-import GenerateBillModal from '../../components/unit/GenarateBillModal';
-import BillRow from '../../components/shared/BillRow';
+import BillHistoryCard from '../../components/unit/BillHistoryCard';
 
 export default function UnitDetail() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const [showAddTenant, setShowAddTenant] = useState(false);
-  const [showGenerateBill, setShowGenerateBill] = useState(false);
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
 
   const { data: unit, isLoading, error } = useUnit(id!);
@@ -103,56 +101,11 @@ export default function UnitDetail() {
         </div>
         {/* Right Column — Bill History */}
         <div className="lg:col-span-2">
-          <div className="card bg-base-100 border border-base-300">
-            <div className="card-body">
-              <div className="flex items-center justify-between mb-4">
-                <div className="flex items-center gap-2">
-                  <ReceiptText className="w-5 h-5" />
-                  <h3 className="font-bold text-base">Bill History</h3>
-                </div>
-                {unit.tenant && (
-                  <button className="btn btn-primary btn-soft btn-sm gap-1" onClick={() => setShowGenerateBill(true)}>
-                    <Plus className="w-4 h-4" />
-                    Generate Bill
-                  </button>
-                )}
-              </div>
-
-              {/* Bills Table */}
-              {unit.bills && unit.bills.length > 0 ? (
-                <div className="overflow-x-auto">
-                  <table className="table table-sm">
-                    <thead>
-                      <tr>
-                        <th>Month</th>
-                        <th>Electricity</th>
-                        <th>Water</th>
-                        <th>Rent</th>
-                        <th>Total</th>
-                        <th>Status</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {unit.bills.map((bill) => (
-                        <BillRow key={bill.id} bill={bill} />
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-              ) : (
-                <div className="flex flex-col items-center justify-center h-32 gap-2 text-base-content/50">
-                  <ReceiptText className="w-12 h-12" />
-                  <p className="text-sm">No bills generated yet</p>
-                </div>
-              )}
-            </div>
-          </div>
+          <BillHistoryCard unitId={id!} bills={unit.bills || []} hasTenant={!!unit.tenant} />
         </div>
       </div>
       {/* Modals */}
       {showAddTenant && <AddTenantModal unitId={id!} onClose={() => setShowAddTenant(false)} />}
-
-      {showGenerateBill && <GenerateBillModal unitId={id!} onClose={() => setShowGenerateBill(false)} />}
 
       {/* Delete Confirmation Modal */}
       {showDeleteConfirm && (

@@ -6,7 +6,11 @@ type AddRateModalProps = {
 };
 
 export default function AddRateModal({ onClose }: AddRateModalProps) {
-  const [form, setForm] = useState({
+  const [form, setForm] = useState<{
+    electricity_rate: number | null;
+    water_rate: number | null;
+    effective_from: string;
+  }>({
     electricity_rate: null,
     water_rate: null,
     effective_from: '',
@@ -28,9 +32,17 @@ export default function AddRateModal({ onClose }: AddRateModalProps) {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    createRate.mutate(form, {
-      onSuccess: () => onClose(),
-    });
+    if (form.electricity_rate === null || form.water_rate === null) return;
+    createRate.mutate(
+      {
+        electricity_rate: form.electricity_rate,
+        water_rate: form.water_rate,
+        effective_from: form.effective_from,
+      },
+      {
+        onSuccess: () => onClose(),
+      },
+    );
   };
 
   const getErrorMessage = () => {
@@ -66,7 +78,7 @@ export default function AddRateModal({ onClose }: AddRateModalProps) {
               name="electricity_rate"
               placeholder="e.g. 15"
               className="input input-bordered w-full [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
-              value={form.electricity_rate}
+              value={form.electricity_rate || ''}
               onChange={handleChange}
               min={0}
               step="0.01"
@@ -83,7 +95,7 @@ export default function AddRateModal({ onClose }: AddRateModalProps) {
               name="water_rate"
               placeholder="e.g. 100"
               className="input input-bordered w-full [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
-              value={form.water_rate}
+              value={form.water_rate || ''}
               onChange={handleChange}
               min={0}
               step="0.01"

@@ -7,7 +7,10 @@ type AddTenantModalProps = {
 };
 
 export default function AddTenantModal({ unitId, onClose }: AddTenantModalProps) {
-  const [form, setForm] = useState({
+  const [form, setForm] = useState<{
+    tenant_name: string;
+    person_count: number | null;
+  }>({
     tenant_name: '',
     person_count: null,
   });
@@ -28,7 +31,11 @@ export default function AddTenantModal({ unitId, onClose }: AddTenantModalProps)
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    createTenant.mutate({ unit_id: unitId, ...form }, { onSuccess: () => onClose() });
+    if (form.person_count === null) return;
+    createTenant.mutate(
+      { unit_id: unitId, tenant_name: form.tenant_name, person_count: form.person_count },
+      { onSuccess: () => onClose() },
+    );
   };
 
   return (
