@@ -6,6 +6,8 @@ import PageHeader from '../../components/shared/PageHeader';
 import UnitCard from '../../components/unit/UnitCard';
 import AddUnitModal from '../../components/unit/AddUnitModal';
 
+import { HouseHeart } from 'lucide-react';
+
 export default function UnitsList() {
   const [showModal, setShowModal] = useState(false);
   const { data: units, isLoading, error } = useUnits();
@@ -41,7 +43,9 @@ export default function UnitsList() {
       {/* Empty State */}
       {units?.length === 0 && (
         <div className="flex flex-col items-center justify-center h-64 gap-4 text-base-content/50">
-          <span className="text-6xl">🏠</span>
+          <span className="text-6xl">
+            <HouseHeart size={100} />
+          </span>
           <p className="text-lg font-medium">No units yet</p>
           <p className="text-sm">Add your first unit to get started</p>
           <button className="btn btn-primary btn-sm" onClick={() => setShowModal(true)}>

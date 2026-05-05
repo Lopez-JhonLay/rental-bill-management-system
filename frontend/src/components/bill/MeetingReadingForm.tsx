@@ -1,10 +1,13 @@
 import { useState } from 'react';
 import type { Bill } from '../../types';
+
 import { useUpdateBill } from '../../hooks/useBillActions';
 
-interface MeterReadingFormProps {
+import { Zap } from 'lucide-react';
+
+type MeterReadingFormProps = {
   bill: Bill;
-}
+};
 
 export default function MeterReadingForm({ bill }: MeterReadingFormProps) {
   const [form, setForm] = useState({
@@ -15,10 +18,10 @@ export default function MeterReadingForm({ bill }: MeterReadingFormProps) {
   const updateBill = useUpdateBill(bill.id);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setForm((prev) => ({
-      ...prev,
-      [e.target.name]: Number(e.target.value),
-    }));
+    const { name, value } = e.target;
+    // Remove leading zeros and convert to number
+    const numValue = value === '' ? 0 : Number(value.replace(/^0+(?=\d)/, ''));
+    setForm((prev) => ({ ...prev, [name]: numValue }));
   };
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -35,7 +38,10 @@ export default function MeterReadingForm({ bill }: MeterReadingFormProps) {
   return (
     <div className="card bg-base-100 border border-base-300">
       <div className="card-body">
-        <h3 className="font-bold text-base mb-4">⚡ Meter Readings</h3>
+        <h3 className="font-bold text-base mb-4 flex items-center gap-2">
+          <Zap className="w-4 h-4" />
+          Meter Readings
+        </h3>
 
         {updateBill.isError && (
           <div className="alert alert-error mb-4">
@@ -57,7 +63,7 @@ export default function MeterReadingForm({ bill }: MeterReadingFormProps) {
             <input
               type="number"
               name="previous_kwh"
-              className="input input-bordered w-full"
+              className="input input-bordered w-full [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
               value={form.previous_kwh}
               onChange={handleChange}
               min={0}
@@ -72,7 +78,7 @@ export default function MeterReadingForm({ bill }: MeterReadingFormProps) {
             <input
               type="number"
               name="current_kwh"
-              className="input input-bordered w-full"
+              className="input input-bordered w-full [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
               value={form.current_kwh}
               onChange={handleChange}
               min={0}

@@ -7,18 +7,23 @@ type AddRateModalProps = {
 
 export default function AddRateModal({ onClose }: AddRateModalProps) {
   const [form, setForm] = useState({
-    electricity_rate: 0,
-    water_rate: 0,
+    electricity_rate: null,
+    water_rate: null,
     effective_from: '',
   });
 
   const createRate = useCreateRate();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setForm((prev) => ({
-      ...prev,
-      [e.target.name]: e.target.name === 'effective_from' ? e.target.value : Number(e.target.value),
-    }));
+    const { name, value } = e.target;
+
+    if (name === 'effective_from') {
+      setForm((prev) => ({ ...prev, [name]: value }));
+    } else {
+      // Remove leading zeros and convert to number
+      const numValue = value === '' ? 0 : Number(value.replace(/^0+(?=\d)/, ''));
+      setForm((prev) => ({ ...prev, [name]: numValue }));
+    }
   };
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -60,7 +65,7 @@ export default function AddRateModal({ onClose }: AddRateModalProps) {
               type="number"
               name="electricity_rate"
               placeholder="e.g. 15"
-              className="input input-bordered w-full"
+              className="input input-bordered w-full [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
               value={form.electricity_rate}
               onChange={handleChange}
               min={0}
@@ -77,7 +82,7 @@ export default function AddRateModal({ onClose }: AddRateModalProps) {
               type="number"
               name="water_rate"
               placeholder="e.g. 100"
-              className="input input-bordered w-full"
+              className="input input-bordered w-full [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
               value={form.water_rate}
               onChange={handleChange}
               min={0}

@@ -9,16 +9,21 @@ type AddTenantModalProps = {
 export default function AddTenantModal({ unitId, onClose }: AddTenantModalProps) {
   const [form, setForm] = useState({
     tenant_name: '',
-    person_count: 1,
+    person_count: null,
   });
 
   const createTenant = useCreateTenant();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setForm((prev) => ({
-      ...prev,
-      [e.target.name]: e.target.name === 'person_count' ? Number(e.target.value) : e.target.value,
-    }));
+    const { name, value } = e.target;
+
+    if (name === 'person_count') {
+      // Remove leading zeros and convert to number
+      const numValue = value === '' ? null : Number(value.replace(/^0+/, '') || '0');
+      setForm((prev) => ({ ...prev, [name]: numValue }));
+    } else {
+      setForm((prev) => ({ ...prev, [name]: value }));
+    }
   };
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -59,10 +64,11 @@ export default function AddTenantModal({ unitId, onClose }: AddTenantModalProps)
             <input
               type="number"
               name="person_count"
-              className="input input-bordered w-full"
-              value={form.person_count}
+              placeholder="4"
+              className="input input-bordered w-full [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+              value={form.person_count ?? ''}
               onChange={handleChange}
-              min={1}
+              min={0}
               required
             />
           </label>
