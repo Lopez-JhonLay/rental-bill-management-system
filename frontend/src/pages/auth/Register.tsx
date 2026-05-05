@@ -34,7 +34,7 @@ export default function Register() {
   };
 
   return (
-    <div className="min-h-screen bg-base-200 flex items-center justify-center relative overflow-hidden">
+    <div className="min-h-screen bg-base-200 flex items-center justify-center relative overflow-hidden px-4">
       {/* Dark Grid Lines Background */}
       <div
         className="absolute inset-0 z-0 opacity-30"
