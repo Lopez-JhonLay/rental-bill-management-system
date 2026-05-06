@@ -8,15 +8,24 @@ import DownloadBillModal from '../bill/DownloadBillModal';
 type BillRowProps = {
   bill: Bill;
   showActions?: boolean;
+  unit?: { unit_name: string };
+  tenant?: { tenant_name: string; person_count: number };
 };
 
-export default function BillRow({ bill, showActions = false }: BillRowProps) {
+export default function BillRow({ bill, showActions = false, unit, tenant }: BillRowProps) {
   const navigate = useNavigate();
   const [showDownloadModal, setShowDownloadModal] = useState(false);
 
   const handleDownload = (e: React.MouseEvent) => {
     e.stopPropagation();
     setShowDownloadModal(true);
+  };
+
+  // Merge the bill with unit and tenant if provided (for cases where they're not in the bill object)
+  const billWithRelations: Bill = {
+    ...bill,
+    unit: bill.unit || (unit as any),
+    tenant: bill.tenant || (tenant as any),
   };
 
   return (
@@ -40,7 +49,7 @@ export default function BillRow({ bill, showActions = false }: BillRowProps) {
       </tr>
 
       {/* Download Modal */}
-      {showDownloadModal && <DownloadBillModal bill={bill} onClose={() => setShowDownloadModal(false)} />}
+      {showDownloadModal && <DownloadBillModal bill={billWithRelations} onClose={() => setShowDownloadModal(false)} />}
     </>
   );
 }

@@ -4,13 +4,15 @@ import type { Bill } from '../../types';
 import BillRow from '../shared/BillRow';
 import GenerateBillModal from './GenarateBillModal';
 
-interface BillHistoryCardProps {
+type BillHistoryCardProps = {
   unitId: string;
   bills: Bill[];
   hasTenant: boolean;
-}
+  unit?: { unit_name: string };
+  tenant?: { tenant_name: string; person_count: number };
+};
 
-export default function BillHistoryCard({ unitId, bills, hasTenant }: BillHistoryCardProps) {
+export default function BillHistoryCard({ unitId, bills, hasTenant, unit, tenant }: BillHistoryCardProps) {
   const [showGenerateBill, setShowGenerateBill] = useState(false);
 
   return (
@@ -47,7 +49,7 @@ export default function BillHistoryCard({ unitId, bills, hasTenant }: BillHistor
                 </thead>
                 <tbody>
                   {bills.map((bill) => (
-                    <BillRow key={bill.id} bill={bill} showActions={true} />
+                    <BillRow key={bill.id} bill={bill} showActions={true} unit={unit} tenant={tenant} />
                   ))}
                 </tbody>
               </table>

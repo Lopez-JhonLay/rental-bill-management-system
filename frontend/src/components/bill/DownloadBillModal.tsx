@@ -31,7 +31,6 @@ export default function DownloadBillModal({ bill, onClose }: DownloadBillModalPr
     setIsGenerating(true);
 
     try {
-      // FIX: Scroll to top-left before capture so html-to-image doesn't clip hidden parts
       const scrollContainer = document.getElementById('bill-scroll-container');
       if (scrollContainer) {
         scrollContainer.scrollLeft = 0;
@@ -74,6 +73,12 @@ export default function DownloadBillModal({ bill, onClose }: DownloadBillModalPr
 
   const isAnySelected = Object.values(selectedItems).some((value) => value);
   const kwhConsumed = bill.current_kwh - bill.previous_kwh;
+
+  // Extract first name from tenant name.
+  const getFirstName = (fullName: string | undefined) => {
+    if (!fullName) return 'N/A';
+    return fullName.split(' ')[0];
+  };
 
   return (
     <dialog className="modal modal-open">
@@ -208,10 +213,7 @@ export default function DownloadBillModal({ bill, onClose }: DownloadBillModalPr
                       className="mb-4! pb-3! sm:mb-6! sm:pb-4!"
                     >
                       <p style={{ fontSize: '18px', margin: '0 0 8px 0' }} className="text-sm! sm:text-lg!">
-                        <strong>Tenant:</strong> {bill.tenant?.tenant_name || 'N/A'}
-                      </p>
-                      <p style={{ fontSize: '18px', margin: 0 }} className="text-sm! sm:text-lg!">
-                        <strong>Unit:</strong> {bill.unit?.unit_name || 'N/A'}
+                        <strong>Name:</strong> {getFirstName(bill.tenant?.tenant_name)}
                       </p>
                     </div>
 

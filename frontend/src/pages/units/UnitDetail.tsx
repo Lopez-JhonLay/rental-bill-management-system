@@ -101,7 +101,20 @@ export default function UnitDetail() {
         </div>
         {/* Right Column — Bill History */}
         <div className="lg:col-span-2">
-          <BillHistoryCard unitId={id!} bills={unit.bills || []} hasTenant={!!unit.tenant} />
+          <BillHistoryCard
+            unitId={id!}
+            bills={unit.bills || []}
+            hasTenant={!!unit.tenant}
+            unit={{ unit_name: unit.unit_name }}
+            tenant={
+              unit.tenant
+                ? {
+                    tenant_name: unit.tenant.tenant_name,
+                    person_count: unit.tenant.person_count,
+                  }
+                : undefined
+            }
+          />
         </div>
       </div>
       {/* Modals */}

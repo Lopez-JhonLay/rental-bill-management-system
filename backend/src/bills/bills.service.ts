@@ -100,6 +100,10 @@ export class BillsService {
         total_amount: totalAmount,
         status: 'DRAFT',
       },
+      include: {
+        unit: true,
+        tenant: true,
+      },
     });
   }
 
@@ -171,6 +175,10 @@ export class BillsService {
         electricity_charge: electricityCharge,
         total_amount: totalAmount,
       },
+      include: {
+        unit: true,
+        tenant: true,
+      },
     });
   }
 
@@ -222,6 +230,10 @@ export class BillsService {
         status: 'CONFIRMED',
         confirmed_at: new Date(),
       },
+      include: {
+        unit: true,
+        tenant: true,
+      },
     });
   }
 
@@ -260,6 +272,10 @@ export class BillsService {
         electricity_charge: electricityCharge,
         water_charge: waterCharge,
         total_amount: totalAmount,
+      },
+      include: {
+        unit: true,
+        tenant: true,
       },
     });
   }
