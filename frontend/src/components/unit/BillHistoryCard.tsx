@@ -42,11 +42,12 @@ export default function BillHistoryCard({ unitId, bills, hasTenant }: BillHistor
                     <th>Rent</th>
                     <th>Total</th>
                     <th>Status</th>
+                    <th>Actions</th>
                   </tr>
                 </thead>
                 <tbody>
                   {bills.map((bill) => (
-                    <BillRow key={bill.id} bill={bill} />
+                    <BillRow key={bill.id} bill={bill} showActions={true} />
                   ))}
                 </tbody>
               </table>
