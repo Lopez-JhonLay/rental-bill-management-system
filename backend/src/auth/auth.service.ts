@@ -76,11 +76,10 @@ export class AuthService {
   }
 
   async logout(res: Response) {
-    res.cookie('token', '', {
+    res.clearCookie('token', {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
       sameSite: 'lax',
-      maxAge: 0,
     });
 
     return res.json({ message: 'Logged out successfully' });
