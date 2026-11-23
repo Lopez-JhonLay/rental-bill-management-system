@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { createPortal } from 'react-dom';
 import { useNavigate } from 'react-router';
 import { Download } from 'lucide-react';
 import type { Bill } from '../../types';
@@ -49,7 +50,10 @@ export default function BillRow({ bill, showActions = false, unit, tenant }: Bil
       </tr>
 
       {/* Download Modal */}
-      {showDownloadModal && <DownloadBillModal bill={billWithRelations} onClose={() => setShowDownloadModal(false)} />}
+      {showDownloadModal && createPortal(
+        <DownloadBillModal bill={billWithRelations} onClose={() => setShowDownloadModal(false)} />,
+        document.body,
+      )}
     </>
   );
 }

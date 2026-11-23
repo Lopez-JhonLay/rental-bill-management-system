@@ -1,0 +1,619 @@
+{
+  "description": "Rental Manager screenshots in original CSS-rendered device frames",
+  "mockData": true,
+  "desktopViewport": {
+    "width": 1440,
+    "height": 900
+  },
+  "mobileViewport": {
+    "width": 390,
+    "height": 844
+  },
+  "mockups": [
+    {
+      "file": "desktop/forest/landing.png",
+      "device": "laptop",
+      "theme": "forest",
+      "dimensions": {
+        "width": 1800,
+        "height": 1260
+      },
+      "sources": [
+        "desktop/forest/landing.png"
+      ],
+      "mockData": true
+    },
+    {
+      "file": "paired/forest/landing.png",
+      "device": "laptop-and-phone",
+      "theme": "forest",
+      "dimensions": {
+        "width": 1800,
+        "height": 1260
+      },
+      "sources": [
+        "desktop/forest/landing.png",
+        "mobile/forest/landing.png"
+      ],
+      "mockData": true
+    },
+    {
+      "file": "desktop/forest/sign-in.png",
+      "device": "laptop",
+      "theme": "forest",
+      "dimensions": {
+        "width": 1800,
+        "height": 1260
+      },
+      "sources": [
+        "desktop/forest/sign-in.png"
+      ],
+      "mockData": true
+    },
+    {
+      "file": "desktop/forest/sign-up.png",
+      "device": "laptop",
+      "theme": "forest",
+      "dimensions": {
+        "width": 1800,
+        "height": 1260
+      },
+      "sources": [
+        "desktop/forest/sign-up.png"
+      ],
+      "mockData": true
+    },
+    {
+      "file": "desktop/forest/dashboard.png",
+      "device": "laptop",
+      "theme": "forest",
+      "dimensions": {
+        "width": 1800,
+        "height": 1260
+      },
+      "sources": [
+        "desktop/forest/dashboard.png"
+      ],
+      "mockData": true
+    },
+    {
+      "file": "paired/forest/dashboard.png",
+      "device": "laptop-and-phone",
+      "theme": "forest",
+      "dimensions": {
+        "width": 1800,
+        "height": 1260
+      },
+      "sources": [
+        "desktop/forest/dashboard.png",
+        "mobile/forest/dashboard.png"
+      ],
+      "mockData": true
+    },
+    {
+      "file": "desktop/forest/units.png",
+      "device": "laptop",
+      "theme": "forest",
+      "dimensions": {
+        "width": 1800,
+        "height": 1260
+      },
+      "sources": [
+        "desktop/forest/units.png"
+      ],
+      "mockData": true
+    },
+    {
+      "file": "paired/forest/units.png",
+      "device": "laptop-and-phone",
+      "theme": "forest",
+      "dimensions": {
+        "width": 1800,
+        "height": 1260
+      },
+      "sources": [
+        "desktop/forest/units.png",
+        "mobile/forest/units.png"
+      ],
+      "mockData": true
+    },
+    {
+      "file": "desktop/forest/unit-create.png",
+      "device": "laptop",
+      "theme": "forest",
+      "dimensions": {
+        "width": 1800,
+        "height": 1260
+      },
+      "sources": [
+        "desktop/forest/unit-create.png"
+      ],
+      "mockData": true
+    },
+    {
+      "file": "desktop/forest/unit-occupied.png",
+      "device": "laptop",
+      "theme": "forest",
+      "dimensions": {
+        "width": 1800,
+        "height": 1260
+      },
+      "sources": [
+        "desktop/forest/unit-occupied.png"
+      ],
+      "mockData": true
+    },
+    {
+      "file": "paired/forest/unit-occupied.png",
+      "device": "laptop-and-phone",
+      "theme": "forest",
+      "dimensions": {
+        "width": 1800,
+        "height": 1260
+      },
+      "sources": [
+        "desktop/forest/unit-occupied.png",
+        "mobile/forest/unit-occupied.png"
+      ],
+      "mockData": true
+    },
+    {
+      "file": "desktop/forest/unit-vacant.png",
+      "device": "laptop",
+      "theme": "forest",
+      "dimensions": {
+        "width": 1800,
+        "height": 1260
+      },
+      "sources": [
+        "desktop/forest/unit-vacant.png"
+      ],
+      "mockData": true
+    },
+    {
+      "file": "desktop/forest/tenant-add.png",
+      "device": "laptop",
+      "theme": "forest",
+      "dimensions": {
+        "width": 1800,
+        "height": 1260
+      },
+      "sources": [
+        "desktop/forest/tenant-add.png"
+      ],
+      "mockData": true
+    },
+    {
+      "file": "desktop/forest/tenant-edit.png",
+      "device": "laptop",
+      "theme": "forest",
+      "dimensions": {
+        "width": 1800,
+        "height": 1260
+      },
+      "sources": [
+        "desktop/forest/tenant-edit.png"
+      ],
+      "mockData": true
+    },
+    {
+      "file": "desktop/forest/bill-generate.png",
+      "device": "laptop",
+      "theme": "forest",
+      "dimensions": {
+        "width": 1800,
+        "height": 1260
+      },
+      "sources": [
+        "desktop/forest/bill-generate.png"
+      ],
+      "mockData": true
+    },
+    {
+      "file": "desktop/forest/bill-draft.png",
+      "device": "laptop",
+      "theme": "forest",
+      "dimensions": {
+        "width": 1800,
+        "height": 1260
+      },
+      "sources": [
+        "desktop/forest/bill-draft.png"
+      ],
+      "mockData": true
+    },
+    {
+      "file": "paired/forest/bill-draft.png",
+      "device": "laptop-and-phone",
+      "theme": "forest",
+      "dimensions": {
+        "width": 1800,
+        "height": 1260
+      },
+      "sources": [
+        "desktop/forest/bill-draft.png",
+        "mobile/forest/bill-draft.png"
+      ],
+      "mockData": true
+    },
+    {
+      "file": "desktop/forest/bill-breakdown.png",
+      "device": "laptop",
+      "theme": "forest",
+      "dimensions": {
+        "width": 1800,
+        "height": 1260
+      },
+      "sources": [
+        "desktop/forest/bill-breakdown.png"
+      ],
+      "mockData": true
+    },
+    {
+      "file": "desktop/forest/bill-confirmed.png",
+      "device": "laptop",
+      "theme": "forest",
+      "dimensions": {
+        "width": 1800,
+        "height": 1260
+      },
+      "sources": [
+        "desktop/forest/bill-confirmed.png"
+      ],
+      "mockData": true
+    },
+    {
+      "file": "paired/forest/bill-confirmed.png",
+      "device": "laptop-and-phone",
+      "theme": "forest",
+      "dimensions": {
+        "width": 1800,
+        "height": 1260
+      },
+      "sources": [
+        "desktop/forest/bill-confirmed.png",
+        "mobile/forest/bill-confirmed.png"
+      ],
+      "mockData": true
+    },
+    {
+      "file": "desktop/forest/bill-rate-warning.png",
+      "device": "laptop",
+      "theme": "forest",
+      "dimensions": {
+        "width": 1800,
+        "height": 1260
+      },
+      "sources": [
+        "desktop/forest/bill-rate-warning.png"
+      ],
+      "mockData": true
+    },
+    {
+      "file": "desktop/forest/bill-download-options.png",
+      "device": "laptop",
+      "theme": "forest",
+      "dimensions": {
+        "width": 1800,
+        "height": 1260
+      },
+      "sources": [
+        "desktop/forest/bill-download-options.png"
+      ],
+      "mockData": true
+    },
+    {
+      "file": "desktop/forest/bill-preview.png",
+      "device": "laptop",
+      "theme": "forest",
+      "dimensions": {
+        "width": 1800,
+        "height": 1260
+      },
+      "sources": [
+        "desktop/forest/bill-preview.png"
+      ],
+      "mockData": true
+    },
+    {
+      "file": "desktop/forest/rate-settings.png",
+      "device": "laptop",
+      "theme": "forest",
+      "dimensions": {
+        "width": 1800,
+        "height": 1260
+      },
+      "sources": [
+        "desktop/forest/rate-settings.png"
+      ],
+      "mockData": true
+    },
+    {
+      "file": "paired/forest/rate-settings.png",
+      "device": "laptop-and-phone",
+      "theme": "forest",
+      "dimensions": {
+        "width": 1800,
+        "height": 1260
+      },
+      "sources": [
+        "desktop/forest/rate-settings.png",
+        "mobile/forest/rate-settings.png"
+      ],
+      "mockData": true
+    },
+    {
+      "file": "desktop/forest/rate-create.png",
+      "device": "laptop",
+      "theme": "forest",
+      "dimensions": {
+        "width": 1800,
+        "height": 1260
+      },
+      "sources": [
+        "desktop/forest/rate-create.png"
+      ],
+      "mockData": true
+    },
+    {
+      "file": "mobile/forest/landing.png",
+      "device": "phone",
+      "theme": "forest",
+      "dimensions": {
+        "width": 1100,
+        "height": 1260
+      },
+      "sources": [
+        "mobile/forest/landing.png"
+      ],
+      "mockData": true
+    },
+    {
+      "file": "mobile/forest/sign-in.png",
+      "device": "phone",
+      "theme": "forest",
+      "dimensions": {
+        "width": 1100,
+        "height": 1260
+      },
+      "sources": [
+        "mobile/forest/sign-in.png"
+      ],
+      "mockData": true
+    },
+    {
+      "file": "mobile/forest/sign-up.png",
+      "device": "phone",
+      "theme": "forest",
+      "dimensions": {
+        "width": 1100,
+        "height": 1260
+      },
+      "sources": [
+        "mobile/forest/sign-up.png"
+      ],
+      "mockData": true
+    },
+    {
+      "file": "mobile/forest/dashboard.png",
+      "device": "phone",
+      "theme": "forest",
+      "dimensions": {
+        "width": 1100,
+        "height": 1260
+      },
+      "sources": [
+        "mobile/forest/dashboard.png"
+      ],
+      "mockData": true
+    },
+    {
+      "file": "mobile/forest/units.png",
+      "device": "phone",
+      "theme": "forest",
+      "dimensions": {
+        "width": 1100,
+        "height": 1260
+      },
+      "sources": [
+        "mobile/forest/units.png"
+      ],
+      "mockData": true
+    },
+    {
+      "file": "mobile/forest/unit-create.png",
+      "device": "phone",
+      "theme": "forest",
+      "dimensions": {
+        "width": 1100,
+        "height": 1260
+      },
+      "sources": [
+        "mobile/forest/unit-create.png"
+      ],
+      "mockData": true
+    },
+    {
+      "file": "mobile/forest/unit-occupied.png",
+      "device": "phone",
+      "theme": "forest",
+      "dimensions": {
+        "width": 1100,
+        "height": 1260
+      },
+      "sources": [
+        "mobile/forest/unit-occupied.png"
+      ],
+      "mockData": true
+    },
+    {
+      "file": "mobile/forest/unit-vacant.png",
+      "device": "phone",
+      "theme": "forest",
+      "dimensions": {
+        "width": 1100,
+        "height": 1260
+      },
+      "sources": [
+        "mobile/forest/unit-vacant.png"
+      ],
+      "mockData": true
+    },
+    {
+      "file": "mobile/forest/tenant-add.png",
+      "device": "phone",
+      "theme": "forest",
+      "dimensions": {
+        "width": 1100,
+        "height": 1260
+      },
+      "sources": [
+        "mobile/forest/tenant-add.png"
+      ],
+      "mockData": true
+    },
+    {
+      "file": "mobile/forest/tenant-edit.png",
+      "device": "phone",
+      "theme": "forest",
+      "dimensions": {
+        "width": 1100,
+        "height": 1260
+      },
+      "sources": [
+        "mobile/forest/tenant-edit.png"
+      ],
+      "mockData": true
+    },
+    {
+      "file": "mobile/forest/bill-generate.png",
+      "device": "phone",
+      "theme": "forest",
+      "dimensions": {
+        "width": 1100,
+        "height": 1260
+      },
+      "sources": [
+        "mobile/forest/bill-generate.png"
+      ],
+      "mockData": true
+    },
+    {
+      "file": "mobile/forest/bill-draft.png",
+      "device": "phone",
+      "theme": "forest",
+      "dimensions": {
+        "width": 1100,
+        "height": 1260
+      },
+      "sources": [
+        "mobile/forest/bill-draft.png"
+      ],
+      "mockData": true
+    },
+    {
+      "file": "mobile/forest/bill-breakdown.png",
+      "device": "phone",
+      "theme": "forest",
+      "dimensions": {
+        "width": 1100,
+        "height": 1260
+      },
+      "sources": [
+        "mobile/forest/bill-breakdown.png"
+      ],
+      "mockData": true
+    },
+    {
+      "file": "mobile/forest/bill-confirmed.png",
+      "device": "phone",
+      "theme": "forest",
+      "dimensions": {
+        "width": 1100,
+        "height": 1260
+      },
+      "sources": [
+        "mobile/forest/bill-confirmed.png"
+      ],
+      "mockData": true
+    },
+    {
+      "file": "mobile/forest/bill-rate-warning.png",
+      "device": "phone",
+      "theme": "forest",
+      "dimensions": {
+        "width": 1100,
+        "height": 1260
+      },
+      "sources": [
+        "mobile/forest/bill-rate-warning.png"
+      ],
+      "mockData": true
+    },
+    {
+      "file": "mobile/forest/bill-download-options.png",
+      "device": "phone",
+      "theme": "forest",
+      "dimensions": {
+        "width": 1100,
+        "height": 1260
+      },
+      "sources": [
+        "mobile/forest/bill-download-options.png"
+      ],
+      "mockData": true
+    },
+    {
+      "file": "mobile/forest/bill-preview.png",
+      "device": "phone",
+      "theme": "forest",
+      "dimensions": {
+        "width": 1100,
+        "height": 1260
+      },
+      "sources": [
+        "mobile/forest/bill-preview.png"
+      ],
+      "mockData": true
+    },
+    {
+      "file": "mobile/forest/rate-settings.png",
+      "device": "phone",
+      "theme": "forest",
+      "dimensions": {
+        "width": 1100,
+        "height": 1260
+      },
+      "sources": [
+        "mobile/forest/rate-settings.png"
+      ],
+      "mockData": true
+    },
+    {
+      "file": "mobile/forest/rate-create.png",
+      "device": "phone",
+      "theme": "forest",
+      "dimensions": {
+        "width": 1100,
+        "height": 1260
+      },
+      "sources": [
+        "mobile/forest/rate-create.png"
+      ],
+      "mockData": true
+    },
+    {
+      "file": "mobile/forest/navigation-menu.png",
+      "device": "phone",
+      "theme": "forest",
+      "dimensions": {
+        "width": 1100,
+        "height": 1260
+      },
+      "sources": [
+        "mobile/forest/navigation-menu.png"
+      ],
+      "mockData": true
+    }
+  ]
+}

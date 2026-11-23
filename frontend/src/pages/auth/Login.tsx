@@ -47,7 +47,7 @@ export default function Login() {
         <div className="card bg-base-100 shadow-xl">
           <div className="card-body">
             {/* Header */}
-            <h1 className="text-2xl font-bold text-center">Rental Manager</h1>
+            <h1 className="text-2xl font-bold text-center"><Link to="/">Rental Manager</Link></h1>
             <p className="text-center text-base-content/60 mb-4">Sign in to your account</p>
 
             {/* Error Alert */}

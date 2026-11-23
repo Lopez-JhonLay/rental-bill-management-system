@@ -14,6 +14,7 @@ import UnitDetail from './pages/units/UnitDetail';
 import BillDetail from './pages/bills/BillDetail';
 import RateSettings from './pages/settings/RateSettings';
 import DashboardLayout from './components/shared/DashboardLayout';
+import Landing from './pages/Landing';
 
 function PublicRoute({ children }: { children: React.ReactNode }) {
   const { isAuthenticated, isLoading } = useAuth();
@@ -114,8 +115,7 @@ export default function App() {
           }
         />
 
-        {/* Redirect root to dashboard */}
-        <Route path="/" element={<Navigate to="/dashboard" />} />
+        <Route path="/" element={<Landing />} />
       </Routes>
     </AnimatePresence>
   );
