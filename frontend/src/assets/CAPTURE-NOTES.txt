@@ -1,0 +1,31 @@
+﻿RENTAL MANAGER PRESENTATION ASSETS
+
+screenshots/desktop/forest and screenshots/mobile/forest contain the actual application captures with fictional data.
+device-mockups/desktop/forest contains laptop compositions.
+device-mockups/mobile/forest contains phone compositions.
+device-mockups/paired/forest contains laptop-and-phone compositions of the main pages.
+
+The existing forest theme is preserved. No additional theme is simulated.
+Desktop screenshots use a 1440 x 900 viewport; mobile screenshots use 390 x 844.
+Long public pages are captured in full. Device frames show the top of the corresponding viewport without stretching the page.
+The workspace preserves its actual internal scrolling. Separate captures show lower sections and dialog states.
+
+Run from the repository root:
+  npm run mockups --prefix frontend
+
+To capture pages only:
+  npm run screenshots --prefix frontend
+
+To render frames from existing screenshots:
+  npm run mockups:render --prefix frontend
+
+Requires installed frontend dependencies, local Google Chrome, and free port 5184.
+API requests are intercepted with fictional fixtures. No real login, bill confirmation, tenant change, or live database is used.
+The temporary capture server and browser close when the workflow finishes, including on failure.
+The manifests list filenames, routes, themes, and output sizes.
+
+Capture fixtures: frontend/scripts/screenshot-fixtures.mjs
+Capture scenarios: frontend/scripts/capture-screenshots.mjs
+Device frames: frontend/scripts/create-device-mockups.mjs
+
+README.md is unchanged by this work.
